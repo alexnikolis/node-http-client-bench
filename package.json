@@ -1,0 +1,55 @@
+{
+  "name": "http-profile",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clean": "run-p clean:*",
+    "clean:lib": "rimraf lib",
+    "prebuild": "run-p clean",
+    "build": "run-p build:*",
+    "build:node": "BABEL_ENV=production babel -D src -d lib",
+    "bench": "run-s bench:*",
+    "bench:get": "babel-node ./test/bench_get.js",
+    "bench:post": "babel-node ./test/bench_post.js",
+    "test": "BABEL_ENV=production ava -v"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "node-fetch": "^2.3.0",
+    "superagent": "^4.0.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/helper-module-imports": "^7.0.0",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/register": "^7.0.0",
+    "ava": "^1.0.1",
+    "babel-plugin-closure-elimination": "^1.3.0",
+    "benchmark": "^2.1.4",
+    "chuhai": "^1.2.0",
+    "nock": "^10.0.4",
+    "yarn-run-all": "^3.1.1"
+  },
+  "ava": {
+    "require": [
+      "@babel/register"
+    ]
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/env",
+        {
+          "targets": {
+            "node": "10"
+          }
+        }
+      ]
+    ]
+  }
+}

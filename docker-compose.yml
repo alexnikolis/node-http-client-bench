@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  bench_nginx:
+    image: nginx:1.12.2-alpine
+    volumes:
+      - ./nginx/resources:/usr/share/nginx/html:ro
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    expose:
+      - 80
+    ports:
+      - '8000:80'
+    depends_on:
+      - echo_server
+    links:
+      - echo_server
+
+  echo_server:
+    image: node
+    volumes:
+      - ./echo:/usr/app
+    command: node echo.js
+    working_dir: /usr/app/
+    expose:
+      - 3000
+    ports:
+      - '3000:3000'
